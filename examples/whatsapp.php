@@ -32,7 +32,7 @@
  * Enjoy.
  */
 //This is a aimple password to view this script. It is NOT the whatsapp password.
-$config['webpassword'] = 'MakeUpPassword';
+$config['webpassword'] = '1g0r4ugust0@11223344';
 
 //Config Template
 //$config['YourFirstName'] = array(
@@ -57,11 +57,11 @@ $config['webpassword'] = 'MakeUpPassword';
 //);
 
 $config['YOURNAME'] = [
-    'fromNumber'    => '441234567890',
-    'nick'          => 'YOURNICKNAME',
+    'fromNumber'    => '554598243330',
+    'nick'          => 'Igor - Inside',
     'waPassword'    => 'EsdfsawS+/ffdskjsdhwebdgxbs=',
-    'email'         => 'testemail@gmail.com',
-    'emailPassword' => 'gmailpassword',
+    'email'         => 'igorconfetti@gmail.com',
+    'emailPassword' => '1g0r4ugust0',
 ];
 
 /**
