@@ -726,7 +726,7 @@ class Whatsapp
 			<head>
 				<meta charset="utf-8">
 				<meta http-equiv="X-UA-Compatible" content="IE=edge">
-				<title>Personal Whatsapp Login</title>
+				<title>Sistema Whatsapp Inside</title>
 				<meta name="viewport" content="width=device-width, initial-scale=1.0">
 				<meta name="description" content="">
 				<meta name="author" content="">
@@ -784,14 +784,14 @@ class Whatsapp
 										<div class="row">
 											<div class="col-xs-offset-1 col-sm-offset-1 col-md-offset-1 col-lg-offset-1 col-xs-10">
 												<div class="form-group">
-													<input class="form-control input-lg" type="password" name="password" placeholder="Password">
+													<input class="form-control input-lg" type="password" name="password" placeholder="Senha">
 												</div>
 											</div>
 										</div>
 										
 										<div class="row">
 											<div class="col-xs-offset-1 col-sm-offset-1 col-md-offset-1 col-lg-offset-1 col-xs-10">
-												<button class="btn btn-success btn-lg btn-block" type="submit">Sign in</button>
+												<button class="btn btn-success btn-lg btn-block" type="submit">Logar</button>
 											</div>
 										</div>
 									</form>
