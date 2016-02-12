@@ -1622,7 +1622,7 @@ class Whatsapp
 											<div class="col-xs-12 col-sm-10">
 												<div class="input-group">
 													<span class="input-group-addon"><i class="fa fa-info-sign"></i></span>
-													<input class="form-control" type="text" id="status" name="status" placeholder="What's your status?" disabled="disabled" >
+													<input class="form-control" type="text" id="status" name="status" placeholder="Qual seu status?" disabled="disabled" >
 												</div>
 											</div>
 										</div>
