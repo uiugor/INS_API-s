@@ -1400,7 +1400,7 @@ class Whatsapp
 						<div class="col-sm-offset-3 col-xs-12 col-sm-6">
 							<div class="panel panel-default">
 								<div class="panel-heading">
-									<h2>Whatsapp! Messenger</h2>
+									<h2>Whatsapp! Messenger Ins</h2>
 								</div>
 								<div class="panel-body">
 									<form class="form-horizontal" id="whatsappform" role="form">
@@ -1414,20 +1414,20 @@ class Whatsapp
 												<div class="input-group">
 													<span class="input-group-addon"><i class="fa fa-wrench"></i></span>
 													<select class="form-control" id="action" name="action">
-														<option value="sendMessage">Send a Message</option>
-														<option value="updateStatus">Update Status</option>
-														<option value="sendBroadcast">Send Broadcast</option>
+														<option value="sendMessage">Enviar Mensagem</option>
+														<option value="updateStatus">Atualizar status</option>
+														<option value="sendBroadcast">Enviar lista de transmissão</option>
 													</select>
 												</div>
 											</div>
 										</div>
 										<div class="form-group">
-											<label class="control-label hidden-xs col-sm-2" for="from">From</label>
+											<label class="control-label hidden-xs col-sm-2" for="from">De</label>
 											<div class="col-xs-12 col-sm-10">
 												<div class="input-group">
 													<span class="input-group-addon"><i class="fa fa-user"></i></span>
 													<select class="form-control" id="from" name="from" placeholder="Choose who to send as...">
-														<option value="">Choose Sender...</option> 
+														<option value="">Escolha o numero...</option> 
 														<?php
                                                         foreach (array_keys($this->config) as $key) {
                                                             if ($key !== 'webpassword') {
@@ -1440,11 +1440,11 @@ class Whatsapp
 											</div>
 										</div>
 										<div class="form-group">
-											<label class="control-label hidden-xs col-sm-2" for="to">To</label>
+											<label class="control-label hidden-xs col-sm-2" for="to">Para</label>
 											<div class="col-xs-12 col-sm-10">
 												<div class="input-group">
 													<span class="input-group-addon"><i class="fa fa-user"></i></span>
-													<select class="form-control" id="to" name="to[]" data-placeholder="Choose a person/group..">
+													<select class="form-control" id="to" name="to[]" data-placeholder="Escolha um contato..">
 													</select>
 												</div>
 											</div>
@@ -1455,7 +1455,7 @@ class Whatsapp
 												<div class="emojicontainer">
 													<ul id="emojiTab" class="nav nav-tabs">
 														<li class="dropdown">
-															<a class="dropdown-toggle" data-toggle="dropdown" href="#">People</a>
+															<a class="dropdown-toggle" data-toggle="dropdown" href="#">Pessoas</a>
 															<ul class="dropdown-menu">
 																<img class="emoji emoji-1F604"> <img class="emoji emoji-1F603"> <img class="emoji emoji-1F600"> <img class="emoji emoji-1F60A"> <img class="emoji emoji-263A"> <img class="emoji emoji-1F609"> <img class="emoji emoji-1F60D">
 																<img class="emoji emoji-1F618"> <img class="emoji emoji-1F61A"> <img class="emoji emoji-1F617"> <img class="emoji emoji-1F619"> <img class="emoji emoji-1F61C"> <img class="emoji emoji-1F61D"> <img class="emoji emoji-1F61B">
@@ -1488,7 +1488,7 @@ class Whatsapp
 														</li>
 
 														<li class="dropdown">
-															<a class="dropdown-toggle" data-toggle="dropdown" href="#">Nature</a>
+															<a class="dropdown-toggle" data-toggle="dropdown" href="#">Natureza</a>
 															<ul class="dropdown-menu">
 																<img class="emoji emoji-1F436"> <img class="emoji emoji-1F43A"> <img class="emoji emoji-1F431"> <img class="emoji emoji-1F42D"> <img class="emoji emoji-1F439"> <img class="emoji emoji-1F430"> <img class="emoji emoji-1F438">
 																<img class="emoji emoji-1F42F"> <img class="emoji emoji-1F428"> <img class="emoji emoji-1F43B"> <img class="emoji emoji-1F437"> <img class="emoji emoji-1F43D"> <img class="emoji emoji-1F42E"> <img class="emoji emoji-1F417">
@@ -1511,7 +1511,7 @@ class Whatsapp
 														</li>
 
 														<li class="dropdown">
-															<a class="dropdown-toggle" data-toggle="dropdown" href="#">Objects</a>
+															<a class="dropdown-toggle" data-toggle="dropdown" href="#">Objetos</a>
 															<ul class="dropdown-menu">
 																<img class="emoji emoji-1F38D"> <img class="emoji emoji-1F49D"> <img class="emoji emoji-1F38E"> <img class="emoji emoji-1F392"> <img class="emoji emoji-1F393"> <img class="emoji emoji-1F38F"> <img class="emoji emoji-1F386">
 																<img class="emoji emoji-1F387"> <img class="emoji emoji-1F390"> <img class="emoji emoji-1F391"> <img class="emoji emoji-1F383"> <img class="emoji emoji-1F47B"> <img class="emoji emoji-1F385"> <img class="emoji emoji-1F384">
@@ -1550,7 +1550,7 @@ class Whatsapp
 														</li>
 
 														<li class="dropdown">
-															<a class="dropdown-toggle" data-toggle="dropdown" href="#">Places</a>
+															<a class="dropdown-toggle" data-toggle="dropdown" href="#">Lugares</a>
 															<ul class="dropdown-menu">
 																<img class="emoji emoji-1F3E0"> <img class="emoji emoji-1F3E1"> <img class="emoji emoji-1F3EB"> <img class="emoji emoji-1F3E2"> <img class="emoji emoji-1F3E3"> <img class="emoji emoji-1F3E5"> <img class="emoji emoji-1F3E6">
 																<img class="emoji emoji-1F3EA"> <img class="emoji emoji-1F3E9"> <img class="emoji emoji-1F3E8"> <img class="emoji emoji-1F492"> <img class="emoji emoji-26EA"> <img class="emoji emoji-1F3EC"> <img class="emoji emoji-1F3E4">
@@ -1571,7 +1571,7 @@ class Whatsapp
 														</li>
 
 														<li class="dropdown">
-															<a class="dropdown-toggle" data-toggle="dropdown" href="#">Symbols</a>
+															<a class="dropdown-toggle" data-toggle="dropdown" href="#">Simbolos</a>
 															<ul class="dropdown-menu">
 																<img class="emoji emoji-0031_20E3"> <img class="emoji emoji-0032_20E3"> <img class="emoji emoji-0033_20E3"> <img class="emoji emoji-0034_20E3"> <img class="emoji emoji-0035_20E3"> <img class="emoji emoji-0036_20E3"> <img class="emoji emoji-0037_20E3">
 																<img class="emoji emoji-0038_20E3"> <img class="emoji emoji-0039_20E3"> <img class="emoji emoji-0030_20E3"> <img class="emoji emoji-1F51F"> <img class="emoji emoji-1F522"> <img class="emoji emoji-0023_20E3"> <img class="emoji emoji-1F523">
@@ -1612,7 +1612,7 @@ class Whatsapp
 										</div>
 									
 										<div class="form-group">
-											<label class="control-label hidden-xs col-sm-2" for="faketextbox">Msg</label>
+											<label class="control-label hidden-xs col-sm-2" for="faketextbox">Mensagem</label>
 											<div class="col-xs-12 col-sm-10">
 												<div id="faketextbox" name="faketextbox" contenteditable="true"></div>
 											</div>
@@ -1627,11 +1627,11 @@ class Whatsapp
 											</div>
 										</div>
 										<div class="form-group">
-											<label class="control-label hidden-xs col-sm-2" for="image">Image</label>
+											<label class="control-label hidden-xs col-sm-2" for="image">Imagem</label>
 											<div class="col-xs-12 col-sm-10">
 												<div class="input-group">
 													<span class="input-group-addon"><i class="fa fa-picture-o"></i></span>
-													<input class="form-control" type="text" id="image" name="image" placeholder="Enter a URL...">
+													<input class="form-control" type="text" id="image" name="image" placeholder="Cole a URL...">
 												</div>
 											</div>
 										</div>
@@ -1640,25 +1640,25 @@ class Whatsapp
 											<div class="col-xs-12 col-sm-10">
 												<div class="input-group">
 													<span class="input-group-addon"><i class="fa fa-music"></i></span>
-													<input class="form-control" type="text" id="audio" name="audio" placeholder="Enter a URL...">
+													<input class="form-control" type="text" id="audio" name="audio" placeholder="Cole a URL...">
 												</div>
 											</div>
 										</div>
 										<div class="form-group">
-											<label class="control-label hidden-xs col-sm-2" for="video">Video</label>
+											<label class="control-label hidden-xs col-sm-2" for="video">Vídeo</label>
 											<div class="col-xs-12 col-sm-10">
 												<div class="input-group">
 													<span class="input-group-addon"><i class="fa fa-video-camera"></i></span>
-													<input class="form-control" type="text" id="video" name="video" placeholder="Enter a URL...">
+													<input class="form-control" type="text" id="video" name="video" placeholder="Cole a URL...">
 												</div>
 											</div>
 										</div>
 										<div class="form-group">
-											<label class="control-label hidden-xs col-sm-2" for="video">Locat.</label>
+											<label class="control-label hidden-xs col-sm-2" for="video">Local</label>
 											<div class="col-xs-12 col-sm-10">
 												<div class="input-group">
 													<span class="input-group-addon"><i class="fa fa-globe"></i></span>
-													<input class="form-control" type="text" id="locationname" name="locationname" placeholder="Name of Location...">
+													<input class="form-control" type="text" id="locationname" name="locationname" placeholder="Localização...">
 												</div>
 											</div>
 										</div>
@@ -1691,10 +1691,10 @@ class Whatsapp
 				   
 										<div class="form-group">
 											<div id="formcontrols" class="col-sm-push-2 col-md-push-2 col-lg-push-2 col-xs-6 col-sm-5">
-												<button id="submit" type="submit" class="btn btn-primary btn-block">Send</button>
+												<button id="submit" type="submit" class="btn btn-primary btn-block">Enviar</button>
 											</div>
 											<div class="col-sm-push-1 col-md-push-2 col-lg-push-2 col-xs-6 col-sm-5">
-												<button id="logout" type="button" class="btn btn-danger btn-block">Log Out</button>
+												<button id="logout" type="button" class="btn btn-danger btn-block">Sair</button>
 											</div>
 										</div>
 									</form>
