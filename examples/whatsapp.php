@@ -774,7 +774,7 @@ class Whatsapp
 						<div class="col-sm-offset-2 col-md-offset-3 col-lg-offset-3 col-xs-12 col-sm-8 col-md-6">
 							<div class="panel panel-default">
 								<div class="panel-heading">
-									<h2>Whatsapp! Login</h2>
+									<h2>Whatsapp! Inside Sistemas Login</h2>
 								</div>
 								<div class="panel-body">
 									<form class="form-signin" action="<?php echo $_SERVER['PHP_SELF'];
@@ -1400,7 +1400,7 @@ class Whatsapp
 						<div class="col-sm-offset-3 col-xs-12 col-sm-6">
 							<div class="panel panel-default">
 								<div class="panel-heading">
-									<h2>Whatsapp! Messenger Ins</h2>
+									<h2>Whatsapp! Messenger Inside Sistemas</h2>
 								</div>
 								<div class="panel-body">
 									<form class="form-horizontal" id="whatsappform" role="form">
