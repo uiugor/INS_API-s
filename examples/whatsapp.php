@@ -1409,7 +1409,7 @@ class Whatsapp
 										<div id="inboundMessage"></div>
 										
 										<div class="form-group">
-											<label class="control-label hidden-xs col-sm-2" for="action">Action</label>
+											<label class="control-label hidden-xs col-sm-2" for="action">Ação</label>
 											<div class="col-xs-12 col-sm-10">
 												<div class="input-group">
 													<span class="input-group-addon"><i class="fa fa-wrench"></i></span>
