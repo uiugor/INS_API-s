@@ -10,7 +10,7 @@ echo "# WA Register Tool #\n";
 echo "#                  #\n";
 echo "####################\n";
 
-echo "\n\nUsername (country code + number, do not use + or 00): ";
+echo "\n\nUsername (554591217321): ";
 $username = str_replace('+', '', trim(fgets(STDIN)));
 if (!preg_match('!^\d+$!', $username)) {
     echo "Wrong number. Do NOT use '+' or '00' before your number\n";
