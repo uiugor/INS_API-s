@@ -57,9 +57,9 @@ $config['webpassword'] = '1g0r4ugust0@11223344';
 //);
 
 $config['Igor Confetti'] = [
-    'fromNumber'    => '554591217321',
+    'fromNumber'    => '554598124344',
     'nick'          => 'Igor - Inside',
-    'waPassword'    => 'EsdfsawS+/ffdskjsdhwebdgxbs=',
+    'waPassword'    => 'onIzWFKkzwKJ8dDxDpCfc9Hr3+o=',
     'email'         => 'igorconfetti@gmail.com',
     'emailPassword' => '1g0r4ugust0',
 ];
