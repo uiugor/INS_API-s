@@ -78,8 +78,8 @@ function onGetImage($mynumber, $from, $id, $type, $t, $name, $size, $url, $file,
 
 require_once '../../src/whatsprot.class.php';
 $target = @$_POST['target'];
-$username = '************';
-$password = '******************************';
+$username = 'Inside';
+$password = 'onIzWFKkzwKJ8dDxDpCfc9Hr3+o=';
 $w = new WhatsProt($username, 0, 'WhatsApi AJAX Demo', true);
 
 $w->eventManager()->bind('onGetImage', 'onGetImage');
