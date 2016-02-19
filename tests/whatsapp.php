@@ -20,8 +20,8 @@ function fgets_u($pStdn)
 $nickname = 'WhatsAPI Test';
 
 // #### DO NOT ADD YOUR INFO AND THEN COMMIT THIS FILE! ####
-$sender = '554598124344'; // Mobile number with country code (but without + or 00)
-$password = 'onIzWFKkzwKJ8dDxDpCfc9Hr3+o='; // Password you received from WhatsApp
+$sender = ''; // Mobile number with country code (but without + or 00)
+$password = ''; // Password you received from WhatsApp
 
 if ($argc < 2) {
     echo 'USAGE: '.$_SERVER['argv'][0]." [-l] [-s <phone> <message>] [-i <phone>] [-set <status>]\n";
