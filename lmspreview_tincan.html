@@ -1,0 +1,285 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<link href="https://code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.min.css" rel="stylesheet" type="text/css" />
+  <script src="https://code.jquery.com/jquery-2.0.3.min.js"></script>
+  <script src="https://code.jquery.com/ui/1.10.4/jquery-ui.min.js"></script>
+ <script src="scormdriver.js"></script>
+ <script>
+var isResponsive = false;
+var respContentWidth = 0,respContentHeight = 0; 
+     var scormMargin = 15;
+var g_MaxDeviceHeight = 550;
+ $(function () {
+ 	if(window.cpLMSPreviewLocalisedStrings && window.cpLMSPreviewLocalisedStrings.kCPDownloadLogs)
+ 	{
+		$('#myButton').tooltip({
+		content: window.cpLMSPreviewLocalisedStrings.kCPDownloadLogs,
+		items:'*'});
+	}
+	else 
+	{
+		$('#myButton').tooltip({
+		content: "kDownloadLogs",
+		items:'*'});
+	}
+	if(window.cpLMSPreviewLocalisedStrings && window.cpLMSPreviewLocalisedStrings.kCPShowLogs){
+		$('#toggleLogs').tooltip({
+		content: window.cpLMSPreviewLocalisedStrings.kCPShowLogs,
+		items:'*'});
+	}
+	else 
+	{
+		$('#toggleLogs').tooltip({
+		content: "kCPShowLogs",
+		items:'*'});
+	}
+	if(window.cpLMSPreviewLocalisedStrings && window.cpLMSPreviewLocalisedStrings.kCPCommunicationLogs)
+ 	{
+		$('#communicationLogsTD').text(window.cpLMSPreviewLocalisedStrings.kCPCommunicationLogs);
+	}
+     if($('#mainContentWin').length > 0 && $('#mainContentWin')[0].src.search("rindex.html") != -1)
+    {
+        isResponsive = true;
+    }
+    else
+    {
+        var lMainContentWin = document.getElementById('mainContentWin');
+        if(lMainContentWin != undefined )
+        {
+            var locationString = lMainContentWin.contentWindow.location.href;
+            if(locationString.search("rindex.html") != -1)
+                isResponsive = true;
+        }
+    }
+    if(!isResponsive){
+        $('#mainContentHolder').resizable({
+            resize:function( event, ui) {
+                var curHeight = $('#debugWinHolder').height();
+                var contentHeight = ui.size.height;
+                var pageHeight = window.innerHeight;
+                var debugwinHeight = pageHeight - contentHeight;
+                $('#debugWinHolder').height(debugwinHeight);
+                resizeLogsIframeWindowGivenHeightPixels(debugwinHeight);
+        }});
+    }
+	
+});
+function ToggleDebugLogs(elem)
+{
+	var button = elem;
+	var parentDiv = button.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.previousElementSibling;
+	if(parentDiv.style.height == "90%")
+	{
+		var tooltipText = "kCPHideLogs";
+		if(window.cpLMSPreviewLocalisedStrings && window.cpLMSPreviewLocalisedStrings.kCPHideLogs){
+			tooltipText = window.cpLMSPreviewLocalisedStrings.kCPHideLogs;
+		}
+		$("#toggleLogs").tooltip("option", "content", tooltipText);
+		elem.src = "lmspreviewResources/Collapse.png";
+		elem.title = "Hide Debug Logs";
+        if(!isResponsive){
+            parentDiv.style.height = "54%";
+            parentDiv.nextElementSibling.style.height = "46%";
+            resizeLogsIframeWindowGivenHeightPercent(54);
+        }
+        else {
+            var minHeightWidth =  getViewWidthWithMinHeight();
+            var lHeight = getMainContentHeightForGivenWith(minHeightWidth);
+            if(lHeight > g_MaxDeviceHeight)
+                lHeight = g_MaxDeviceHeight;
+            var lDebugLogsHeight = window.innerHeight - lHeight - 18;//18 for margin and padding
+            parentDiv.style.height = String(lHeight+18) + "px";
+            parentDiv.nextElementSibling.style.height = String(lDebugLogsHeight) + "px";;
+            resizeLogsIframeWindowGivenHeightPixels(lDebugLogsHeight);
+            resizeContentOnLogsExpansionWithWidthHeight(minHeightWidth,lHeight);
+            window.mainContentWin.scrolling = "no";
+            window.mainContentWin.document.body.style.overflow = "hidden";
+        }
+        parentDiv.nextElementSibling.style.bottom = "0%";
+        parentDiv.nextElementSibling.children[1].style.display = "block";
+        // console.log(parentDiv.nextElementSibling.childNodes[0]);
+	}
+	else
+	{
+		var tooltipText = "kCPShowLogs";
+		if(window.cpLMSPreviewLocalisedStrings && window.cpLMSPreviewLocalisedStrings.kCPShowLogs){
+			tooltipText = window.cpLMSPreviewLocalisedStrings.kCPShowLogs;
+		}
+		$("#toggleLogs").tooltip("option", "content",tooltipText);
+		elem.title = "Show Debug Logs";
+		elem.src = "lmspreviewResources/Expand.png";
+		parentDiv.style.height = "90%";
+        if(isResponsive)
+            resizeContentOnLogsContraction();
+		parentDiv.nextElementSibling.style.height = "10%";
+        parentDiv.nextElementSibling.style.bottom = "0%";
+        parentDiv.nextElementSibling.children[1].style.display = "block";
+        resizeLogsIframeWindowGivenHeightPercent(10);
+        window.mainContentWin.scrolling = "auto";
+        window.mainContentWin.document.body.style.overflow = "auto";
+        //console.log(parentDiv.nextElementSibling.children[0]);
+	}
+}
+function resizeLogsIframeWindowGivenHeightPercent( aHeightPercent)
+{
+    var lCommLogsBarHeight = 30;
+    var lWindowHeight = window.innerHeight;
+    var debugLogsDivHeight = lWindowHeight * aHeightPercent /100;
+    var debugLogsIframeHeight = debugLogsDivHeight - lCommLogsBarHeight - scormMargin;
+    var debugLogsIframeHeightInPercent = debugLogsIframeHeight * 100 / debugLogsDivHeight;
+    document.getElementById("debugWin").style.height = String(debugLogsIframeHeightInPercent) + "%";
+}
+function resizeLogsIframeWindowGivenHeightPixels( aHeightInPixels)
+{
+    var lCommLogsBarHeight = 30;
+    var debugLogsDivHeight = aHeightInPixels;
+    var debugLogsIframeHeight = debugLogsDivHeight - lCommLogsBarHeight - scormMargin;
+    var debugLogsIframeHeightInPercent = debugLogsIframeHeight * 100 / debugLogsDivHeight;
+    var debugLogsIframeHeightInPercentFloored = Math.floor(debugLogsIframeHeightInPercent);
+    document.getElementById("debugWin").style.height = String(debugLogsIframeHeightInPercentFloored) + "%";
+}
+function resizeContentOnLogsExpansion()
+{
+    var responsiveTemplateFrame = window.mainContentWin;
+    if(responsiveTemplateFrame == undefined)
+        return;
+    if(responsiveTemplateFrame.contentDiv)
+    {
+        respContentWidth = responsiveTemplateFrame.contentDiv.width;
+        respContentHeight = responsiveTemplateFrame.contentDiv.height;
+    }
+    var holderWidth = window.mainContentHolder.clientWidth;
+    var holderHeight = window.mainContentHolder.clientHeight;
+    var contentNewWidth = holderWidth * 0.8;
+    var contentNewHeight = holderHeight * 0.9;
+    if(responsiveTemplateFrame.control_buttons != undefined)
+        responsiveTemplateFrame.control_buttons.style.display = "none";
+    if(responsiveTemplateFrame.contentSlider != undefined)
+        responsiveTemplateFrame.contentSlider.style.display = "none";
+    if(respContentWidth > contentNewWidth )
+        responsiveTemplateFrame.resizeIFrameToWidth(contentNewWidth); 
+     responsiveTemplateFrame.resizeIFrameToWidth(360); 
+    if( respContentHeight > contentNewHeight ){
+        if(contentNewHeight < 460) contentNewHeight = 460;
+        responsiveTemplateFrame.resizeIFrameToHeight(contentNewHeight);
+    }
+      
+}
+   function resizeContentOnLogsExpansionWithWidthHeight(aWidth,aHeight)
+{
+    var responsiveTemplateFrame = window.mainContentWin;
+    if(responsiveTemplateFrame == undefined)
+        return;
+    if(responsiveTemplateFrame.contentDiv)
+    {
+        respContentWidth = responsiveTemplateFrame.contentDiv.width;
+        respContentHeight = responsiveTemplateFrame.contentDiv.height;
+        if(respContentHeight == undefined)
+        {
+            respContentHeight = parseInt(responsiveTemplateFrame.contentDiv.style.height);
+        }
+    }
+    var holderWidth = window.mainContentHolder.clientWidth;
+    var holderHeight = window.mainContentHolder.clientHeight;
+    var contentNewWidth = holderWidth * 0.8;
+    var contentNewHeight = holderHeight * 0.9;
+    if(responsiveTemplateFrame.control_buttons != undefined)
+        responsiveTemplateFrame.control_buttons.style.display = "none";
+    if(responsiveTemplateFrame.contentSlider != undefined)
+        responsiveTemplateFrame.contentSlider.style.display = "none";
+    if(respContentWidth > contentNewWidth )
+        responsiveTemplateFrame.resizeIFrameToWidth(contentNewWidth); 
+    responsiveTemplateFrame.resizeIFrameToWidth(aWidth); 
+    responsiveTemplateFrame.resizeIFrameToHeight(aHeight);     
+}
+function resizeContentOnLogsContraction()
+{
+     var responsiveTemplateFrame = window.mainContentWin;
+    if(responsiveTemplateFrame == undefined)
+        return;
+    if(responsiveTemplateFrame.contentDiv)
+    {
+        responsiveTemplateFrame.resizeIFrameToHeight(respContentHeight);
+        responsiveTemplateFrame.resizeIFrameToWidth(respContentWidth);
+    }
+    if(responsiveTemplateFrame.control_buttons != undefined)
+        responsiveTemplateFrame.control_buttons.style.display = "block";
+    if(responsiveTemplateFrame.contentSlider != undefined)
+        responsiveTemplateFrame.contentSlider.style.display = "block";
+      
+} 
+ function resizeContentOnLogsExpansionWithWidthHeight(aWidth,aHeight)
+{
+    var responsiveTemplateFrame = window.mainContentWin;
+    if(responsiveTemplateFrame == undefined)
+        return;
+    if(responsiveTemplateFrame.contentDiv)
+    {
+        respContentWidth = responsiveTemplateFrame.contentDiv.width;
+        respContentHeight = responsiveTemplateFrame.contentDiv.height;
+        if(respContentHeight == undefined)
+        {
+            respContentHeight = parseInt(responsiveTemplateFrame.contentDiv.style.height);
+        }
+    }
+    var holderWidth = window.mainContentHolder.clientWidth;
+    var holderHeight = window.mainContentHolder.clientHeight;
+    var contentNewWidth = holderWidth * 0.8;
+    var contentNewHeight = holderHeight * 0.9;
+    if(responsiveTemplateFrame.control_buttons != undefined)
+        responsiveTemplateFrame.control_buttons.style.display = "none";
+    if(responsiveTemplateFrame.contentSlider != undefined)
+        responsiveTemplateFrame.contentSlider.style.display = "none";
+    if(respContentWidth > contentNewWidth )
+        responsiveTemplateFrame.resizeIFrameToWidth(contentNewWidth); 
+    responsiveTemplateFrame.resizeIFrameToWidth(aWidth); 
+    responsiveTemplateFrame.resizeIFrameToHeight(aHeight);
+      
+}
+function getViewWidthWithMinHeight()
+{
+    var responsiveTemplateFrame = window.mainContentWin;
+    if(responsiveTemplateFrame == undefined)
+        return 0;
+    var cpHolder = responsiveTemplateFrame.preview;
+    var responsiveWidths = cpHolder.cp.responsiveWidths;
+    if(responsiveWidths.length < 1)
+        return 0;
+    var widthWithMixHeight = responsiveWidths[0];
+    for (var i in responsiveWidths)
+    {
+        
+        if(cpHolder.cp.getCurrentSlideResponsiveHeight(widthWithMixHeight) > cpHolder.cp.getCurrentSlideResponsiveHeight(responsiveWidths[i]))
+            widthWithMixHeight = responsiveWidths[i];
+    }
+    return widthWithMixHeight;
+        
+}
+function getMainContentHeightForGivenWith(aWidth)
+{
+     var responsiveTemplateFrame = window.mainContentWin;
+    if(responsiveTemplateFrame == undefined)
+        return 0;
+    var cpHolder = responsiveTemplateFrame.preview;
+    var lHeight = cpHolder.cp.getCurrentSlideResponsiveHeight(aWidth);
+    return lHeight;
+}
+
+</script>
+
+</head>
+<body style='overflow:hidden;'>
+<div class='mainContentHolder' id = 'mainContentHolder' style='left:0%;top:0%;width:100%;height:90%;display:block;position:absolute;'>	
+	<iframe name='mainContentWin' class='mainContentWin' id='mainContentWin' src="@LMSINDEXSOURCEFILE"  frameborder="0" scrolling="auto" style='width:100%;height:100%'>
+	</iframe>
+</div>
+
+<div class='debugWinHolder' id = 'debugWinHolder' style='left:0%;bottom:0%;width:100%;height:10%;display:block;position:absolute;'>
+<div><span style='word-wrap:break-word;background-color:#F0F2F6;display:block;line-height:1;font-size: 100%;font-weight:900;color:#000000;vertical-align: baseline;padding:0px;border:1px solid #606062;width:100%;height:4%;bottom:0px'><table style="margin:1px;height:35px;width:99%"><tr style="margin:1px;height:32px"><td id="communicationLogsTD" style="margin:1px;height:30px;width:50%;font-family:ariel">kCPCommunicationLogs </td><td style="margin:1px;height:30px;width:30%"></td><td style="margin:1px;height:30px;float:right"><input type ="image" alt="submit" title="Download Debug logs" class='myButton' id='myButton'   src = "lmspreviewResources/Download.png" onclick='downloadDebugLogs()'style="margin:0px;"> </input>
+<input type="image" alt="submit" title="Show Debug Logs" src="lmspreviewResources/Expand.png" id="toggleLogs"	 onclick="ToggleDebugLogs(this)" style="margin:0px 0px 0px 15px"></input></td></tr></table></span></div>
+	<iframe name='debugWin' class='debugWin' id="debugWin" style='width:99%;'>
+	</iframe>
+</div>
+</body>
+</html>

@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <style>
+        th,
+        td {
+            padding: 8px;
+            font-family: 'Helvetica', sans-serif;
+            word-break:break-all;
+        }
+        table {
+            border: 0px solid black
+        }
+        .myText1 {
+            font-size: 14px;
+            font-family: 'Helvetica', sans-serif;
+            color: #222;
+            border: 1px solid #ddd;
+        }
+        .myText2 {
+            font-size: 14px;
+            font-family: 'Helvetica', sans-serif;
+            text-align: left;
+            color: #222;
+            background-color: #ded;
+            width: 35%;
+            border: 1px solid #ddd;
+        }
+        .table1 {
+            margin-top: 0;
+            float: left;
+            border: 1px solid #ddd;
+            width: 100%;
+        }
+        .table1 td {
+            
+        }
+        .table2 {
+            margin-top: 0;
+            float: right;
+            border: 1px solid #ddd;
+            width: 100%;
+        }
+        .table3 {
+            table-layout: fixed;
+        }
+        .interaction-table-green-row {
+            background-color: #ded;
+        }
+        .interaction-table-white-row {
+            background-color: #fff;
+        }
+        .interaction-table-cell {
+            border: 1px solid #ddd;
+            font-family: 'Helvetica', sans-serif;
+            color: #222;
+            font-size: 14px;
+        }
+        .interaction-table-cell-head {
+            border: 1px solid #aaa;
+            font-family: 'Helvetica', sans-serif;
+            color: #fff;
+            font-size: 14px;
+            background-color: #707070;
+        }
+        .heading {
+            font-family: 'Helvetica', sans-serif;
+            font-size: 20px;
+            text-align: left;
+            color: #fff;
+            background-color: #198041;
+        }
+        .viewImg {
+            width: 30px;
+            height: 30px;
+            background: url('lmsResultsFormatResources/View.png');
+        }
+        #viewImg {
+            width: 30px;
+            height: 30px;
+            background: url('lmsResultsFormatResources/View.png');
+        }
+        #viewImg:hover {
+            width: 30px;
+            height: 30px;
+            background: url('lmsResultsFormatResources/View.png');
+        }
+        #viewImg:visited {
+            width: 30px;
+            height: 30px;
+            background: url('lmsResultsFormatResources/View.png');
+        }
+        #downloadImg {
+            width: 30px;
+            height: 30px;
+            background: url('lmsResultsFormatResources/Download.png');
+        }
+        #downloadImg:hover {
+            width: 30px;
+            height: 30px;
+            background: url('lmsResultsFormatResources/Download.png');
+        }
+        #downloadImg:visited {
+            width: 30px;
+            height: 30px;
+            background: url('lmsResultsFormatResources/Download.png');
+        }
+        .black_overlay{
+			display: none;
+			position: absolute;
+			top: 0%;
+			left: 0%;
+			width: 100%;
+			height: 100%;
+			background-color: black;
+			z-index:1001;
+			-moz-opacity: 0.6;
+			opacity:.60;
+			filter: alpha(opacity=60);
+		}
+		.white_content {
+			display: none;
+			position: absolute;
+			top: 20%;
+			left: 33%;
+			width: 35%;
+			height: 60%;
+			padding: 0px;
+			background-color: white;
+			z-index:1002;
+			overflow:auto;
+		}
+        .resultsViewTitle{
+            font-family: 'Helvetica', sans-serif;
+            color: #188442;
+            font-size: 20px;
+            margin-top: 0px;
+            padding-top: 10px;
+        }
+        .resultsViewTopDiv{
+            height: 50px;
+            width: 100%;
+            background-color: #E0E0E0;
+            top: 0px;
+            text-align: center;
+            vertical-align: middle;
+        }
+        #cancelButton{
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            right: 5px;
+            top: 10px;
+            float: right;
+            margin-right: 20px;
+        }
+        .resultsViewSubtitle{
+            background-color: #188442;
+            color: white;
+            font-family: 'Helvetica', sans-serif;
+            font-size: 18px;
+            padding-bottom: 7px;
+            padding-top: 7px;
+            padding-left: 4px;
+            margin-left: 30px;
+            margin-right: 30px;
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+        .resultsViewContentHeading{
+            font-family: 'Helvetica', sans-serif;
+            font-size: 14px;
+            color: #188442;
+            padding-bottom: 0px;
+            padding-top: 0px;
+            margin: 0px;
+        }
+        .resultsViewContent{
+             font-family: 'Helvetica', sans-serif;
+            font-size: 12px;
+            color: black;
+            margin-top: 5px
+        }
+        .resultsViewSubHeading{
+            font-family: 'Helvetica', sans-serif;
+            font-size: 12px;
+            color: black;
+            margin-top: 3px
+        }
+        .courseDetailsHelpTable{
+            margin-right: 30px;
+            margin-left: 30px;
+            overflow: scroll;
+        }
+        .helpContent{
+            overflow-y: auto;
+            position: absolute;
+            top: 0px;
+            bottom: 0px;
+            margin-top: 50px;
+            
+        }
+        .helpButton{
+            
+        }
+    </style>
+</head>
+
+<body>
+    <div id="CourseDetailsHelpDiv" class="white_content">
+        <div class="resultsViewTopDiv">
+            <p class="resultsViewTitle"> LMS Result view help</p>
+            <input id="cancelButton" type='image' src='lmsResultsFormatResources/close.png' onclick='CloseCourseDetailsHelp()'></input>        
+        </div>
+        <div class="helpContent">
+            <p class="resultsViewSubtitle">Course Details</p>
+            <table class='courseDetailsHelpTable' cellspacing='0' cellpadding='0' >
+                <tr><td><p class="resultsViewSubHeading">The values of the following SCORM data elements can be edited through Captivate by clicking Edit > Preferences > Reporting > Configure. The Manifest dialog opens where you can specify these values.  </p></td></tr>
+                <tr><td>
+                <p class="resultsViewContentHeading" >Course_id</p>
+                <p class="resultsViewContent">The ID of the course that contains the SCORM activity. Edit the Identifier field in the Course area to update this section.</p></td>
+                </tr>
+
+                <tr><td>
+                <p class="resultsViewContentHeading" >Course_title</p>
+                <p class="resultsViewContent">The name of the course that contains the SCORM activity. Edit the Title field in the Course area to update this section.</p></td>
+                </tr>
+                <tr><td>
+                <p class="resultsViewContentHeading" >Sco_id</p>
+                <p class="resultsViewContent">The ID of the SCORM course. Edit the Identifier field in the SCO area to update this section. </p></td>
+                </tr>
+                <tr><td>
+                <p class="resultsViewContentHeading" >Sco_title </p>
+                <p class="resultsViewContent">The title of the SCORM course. Edit the Title field in the SCO area to update this section.
+                    </p></td>
+                </tr>
+                <tr><td><p class='resultsViewSubHeading'> The values of the following SCORM data elements are populated at run-time depending on the learner's performance.</p></td></tr>
+                 <tr><td>
+                <p class="resultsViewContentHeading" >Attempts</p>
+                <p class="resultsViewContent">number of attempts made by the learner.</p></td>
+                </tr>
+                 <tr><td>
+                <p class="resultsViewContentHeading" >Suspended</p>
+                <p class="resultsViewContent">indicates whether the course is suspended or not.</p></td>
+                </tr>
+                <tr><td>
+                <p class="resultsViewContentHeading" >Objective_id </p>
+                <p class="resultsViewContent">The ID of the quiz to which the question slide belongs. In a master quiz containing multiple quizzes, an objective ID helps identify the quiz to which the question belongs </p></td>
+                </tr>
+
+
+            </table>
+        </div>
+    </div>
+    
+     <div id="RuntimeDataHelpDiv" class="white_content">
+        <div class="resultsViewTopDiv">
+            <p class="resultsViewTitle"> LMS Result view help</p>
+            <input id="cancelButton" type='image' src='lmsResultsFormatResources/close.png' onclick='CloseRuntimeDataHelp()'></input>        
+        </div>
+        <div class="helpContent">
+            <p class="resultsViewSubtitle">Runtime Data</p>
+            <table class='courseDetailsHelpTable' cellspacing='0' cellpadding='0' ><tr><td>
+                <p class="resultsViewContentHeading" >Completion_status </p>
+                <p class="resultsViewContent">Indicates whether the learner has completed the course objectives. This can be set within Captivate in Edit > Preferences > Reporting in the Completion criteria area</p></td>
+                </tr>
+
+            <tr><td>
+                <p class="resultsViewContentHeading" >Success_status</p>
+                <p class="resultsViewContent">Indicates whether the learner has mastered the course or not. This can be set within Captivate in Edit > Preferences > Reporting in the Success criteria area.</p></td>
+                </tr>
+                <tr><td>
+                <p class="resultsViewContentHeading" >Entry</p>
+                <p class="resultsViewContent">indicates whether the learner is starting the course for the first time or is resuming a prior attempt.</p></td>
+                </tr>
+                <tr><td>
+                <p class="resultsViewContentHeading" >Exit </p>
+                <p class="resultsViewContent">indicates how the learner is exiting the course </p></td>
+                </tr>
+                <tr><td>
+                <p class="resultsViewContentHeading" >Location </p>
+                <p class="resultsViewContent">If the course is suspended, this indicates the last slide that the learner viewed before exiting the course. </p></td>
+                </tr>
+                <tr><td>
+                <p class="resultsViewContentHeading" >Score_raw </p>
+                <p class="resultsViewContent">Indicates the score that the learner earned on an assessment in the course</p></td>
+                </tr>
+                <tr><td>
+                <p class="resultsViewContentHeading" >Score_max </p>
+                <p class="resultsViewContent">Indicates the maximum possible score that a learner can earn in an assessment </p></td>
+                </tr>
+                <tr><td>
+                <p class="resultsViewContentHeading" >Score_scaled </p>
+                <p class="resultsViewContent">Indicates the number that reflects the performance of the learner on a scale that is defined by the organization</p></td>
+                </tr>
+
+
+            </table>
+        </div>
+    </div>
+
+ <div id="InteractionDataHelpDiv" class="white_content">
+        <div class="resultsViewTopDiv">
+            <p class="resultsViewTitle"> LMS Result view help</p>
+            <input id="cancelButton" type='image' src='lmsResultsFormatResources/close.png' onclick='CloseInteractionDataHelp()'></input>        
+        </div>
+        <div class="helpContent">
+            <p class="resultsViewSubtitle">Interaction Data</p>
+            <table class='courseDetailsHelpTable' cellspacing='0' cellpadding='0' ><tr><td>
+                <p class="resultsViewContentHeading" >Sl. No</p>
+                <p class="resultsViewContent">Serial Number </p></td>
+                </tr>
+
+            <tr><td>
+                <p class="resultsViewContentHeading" >ID</p>
+                <p class="resultsViewContent">The question identifier. This is used to associate the question to a database or master list of questions. You can edit this ID in the property Inspector of the question slide. You can also add a prefix to the ID in the Edit > Preferences > Quiz Settings >Interaction ID Prefix text field. Use this field if you want to customize the generated interaction IDs by prefixing them with the assigned characters</p></td>
+                </tr>
+                <tr><td>
+                <p class="resultsViewContentHeading" >Type </p>
+                <p class="resultsViewContent">Type of question, for example, multiple-choice, true/false, matching, and so on. </p></td>
+                </tr>
+                <tr><td>
+                <p class="resultsViewContentHeading" >Timestamp </p>
+                <p class="resultsViewContent">The time when this item was presented to the learner </p></td>
+                </tr>
+                <tr><td>
+                <p class="resultsViewContentHeading" >Correct responses </p>
+                <p class="resultsViewContent">Defines an array of correct responses to be presented. The array is a list of patterns that correspond to the type of interaction. </p></td>
+                </tr>
+                <tr><td>
+                <p class="resultsViewContentHeading" >Weighting </p>
+                <p class="resultsViewContent">Weight assigned to the question when calculating score </p></td>
+                </tr>
+                <tr><td>
+                <p class="resultsViewContentHeading" >Learner response  </p>
+                <p class="resultsViewContent">What the learner actually answered </p></td>
+                </tr>
+                <tr><td>
+                <p class="resultsViewContentHeading" >Result  </p>
+                <p class="resultsViewContent">Whether the learner's response was correct or not</p></td>
+                </tr>
+                <tr><td>
+                <p class="resultsViewContentHeading" >Latency  </p>
+                <p class="resultsViewContent">The time it takes for the learner to respond to the question</p></td>
+                </tr>
+                <tr><td>
+                <p class="resultsViewContentHeading" >Description  </p>
+                <p class="resultsViewContent">A description of the interaction. This might be the question presented or a description of the task given to the learner </p></td>
+                </tr>
+
+
+            </table>
+        </div>
+    </div>
+		<div id="fade" class="black_overlay"></div>
+    
+    <script type="text/javascript">
+        /* Their are different associate arrays for different blocks. 1. activityParam 2. courseParam 3. objectiveParam */
+
+        /* Getting Parameters */
+        function getSearchParameters() {
+            var prmstr = window.location.search.substr(1);
+            return prmstr != null && prmstr != "" ? transformToAssocArray(prmstr) : {};
+        }
+
+        function transformToAssocArray(prmstr) {
+            var params = {};
+            var prmarr = prmstr.split("&");
+            for (var i = 0; i < prmarr.length; i++) {
+                var tmparr = prmarr[i].split("=");
+                params[tmparr[0]] = tmparr[1];
+            }
+            return params;
+        }
+        document.write("<div style='margin-left:40px;margin-right:40px'>");
+        var params = getSearchParameters();
+        var xmlFileName = params.filename; // Extracting filename
+        var xmlFileStandard = params.standard;
+
+
+        if (window.XMLHttpRequest) { // code for IE7+, Firefox, Chrome, Opera, Safari
+            xmlhttp = new XMLHttpRequest();
+        } else { // code for IE6, IE5
+            xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+        }
+        xmlhttp.open("GET", xmlFileName, false);
+        xmlhttp.send();
+        xmlDoc = xmlhttp.responseXML;
+
+
+         //sample url ->> file:///localhost:8080/format.html?filename=report1.xml&standard=SCORM1.2
+
+
+        function transformToJSON(paramObject, keyNameArray) {
+            for (var i = 0; i < keyNameArray.length; i++) {
+                paramObject[keyNameArray[i]] = null;
+            }
+            return paramObject;
+        }
+
+        function insertDataToJSON(paramObject, XMLKey, arrayObject, startIndex) {
+            for (var i = startIndex; i < arrayObject.length; i++) {
+                var nodeElement = XMLKey.getElementsByTagName(arrayObject[i])[0].childNodes;
+                if (nodeElement.length != 0)
+                    paramObject[arrayObject[i]] = nodeElement[0].nodeValue;
+                else
+                    paramObject[arrayObject[i]] = "N/A";
+            }
+        }
+
+        var keysLength = 0;
+        var flag = 1;
+
+        function printDataFromJSON(paramObject, arrayObject) {
+            for (var i = 0; i < arrayObject.length; i++) {
+                document.write("<tr>");
+                document.write("<td class='myText2'>" + arrayObject[i] + "   :   </td>");
+                //vertical line between two tables
+                //"+flag+"
+                document.write("<td style=\"border-right:0px solid black\" class='myText1'>" + paramObject[arrayObject[i]] + "</td>");
+                document.write("</tr>");
+                keysLength++;
+                // value 14 will be half of the total keys.
+                if (keysLength > 7 && flag) {
+                    ////second table
+                    document.write("</table></td><td style='width:50%;'><table class='table2' cellspacing='0' cellpadding='0' ><tr><th colspan=2 class='heading' onmouseenter='showRuntimeDataHelpButton()' onmouseleave='hideRuntimeDataHelpButton()'>Runtime data <input type='image' class='helpButton' id='RuntimeDataHelpImg' style='visibility:visible' src='lmsResultsFormatResources/question-mark.png' onclick='OpenRuntimeDataHelp()' ></th></tr>");
+                    //document.write("<tr><td class='myText2'>j </td><td style=\"border-right:0px solid black\" class='myText1'>k </td></tr></table></td><td style='width:50%;'><table class='table2' cellspacing='0' cellpadding='0' ><tr><th colspan=2 class='heading'>Runtime data</th></tr>");
+                    flag = 0;
+                }
+            }
+        }
+
+
+        /*
+        Activity ID
+        */
+
+        var activityParam = {};
+        var activityArr = ["course_id", "course_title", "sco_id", "sco_title"];
+
+
+        var actID = xmlDoc.getElementsByTagName("activity");
+        activityParam.course_id = actID[0].getAttribute("id");
+        if (actID.length == 2) {
+            activityParam.sco_id = actID[1].getAttribute("id");
+        }
+
+        var actTitle = xmlDoc.getElementsByTagName("title");
+        if (actTitle[0].childNodes.length != 0)
+            activityParam.course_title = actTitle[0].childNodes[0].nodeValue;
+        if (actID.length == 2) {
+            if (actTitle[1].childNodes.length != 0)
+                activityParam.sco_title = actTitle[1].childNodes[0].nodeValue;
+        }
+
+         // View and download as xml.
+        document.write("<div id='topDiv'><table><tr><td><h3 style='color:#222;'>Result [ Standard:" + xmlFileStandard + " ]</h3></td><td>");
+         //        document.write("<h5 style='text-align:right'><a href='" + params.filename + "'>view</a> or ");
+         //        document.write("<a href='" + params.filename + "' download=\"LMSPreviewResult.xml\">download</a> the Result XML</h3></div>");
+
+        document.write("<table><tr><td><a href='" + params.filename + "'target='_blank'><div id='viewImg' title='view'></div></a></td>");
+        document.write("<td><a href='" + params.filename + "' download=\"LMSPreviewResult.xml\"><div id='downloadImg' title='download'></div></a></td>");
+        //document.write("<td><a href='mailto:someone@example.com?subject=LMS%20Result&attachment=C:\\report1.xml'>Send Mail</a></td>");
+        document.write("</tr></table></td>");
+        document.write("</tr></table>");
+         //first table
+        document.write("</div><div id='midDiv'><table style='width:100%;'><tr><td style='width:50%;border-right:0px solid black'><table class='table1' cellspacing='0' cellpadding='0' style='margin:0px'><tr><th colspan=2 class='heading' onmouseenter='showCourseHelpButton()' onmouseleave='hideCourseHelpButton()'>Course Details <input type='image' id='courseDetailsHelpImg' style='visibility:visible' class='helpButton' src='lmsResultsFormatResources/question-mark.png' onclick='OpenCourseDetailsHelp()' ></th></tr>");
+        printDataFromJSON(activityParam, activityArr);
+
+
+        /*
+        COURSE DETAILS
+        */
+
+        var courseParam = {};
+         //var courseArr = ["satisfied", "completed", "progressstatus", "attemptprogressstatus", "attempts", "suspended"];
+        var courseArr = ["attempts", "suspended","satisfied"];
+
+        var courseXML = xmlDoc.getElementsByTagName("children")[0].childNodes;
+        var activityXML = courseXML[0];
+
+        insertDataToJSON(courseParam, activityXML, courseArr, 0);
+        printDataFromJSON(courseParam, courseArr);
+
+
+        /*
+        Objectives
+        */
+
+
+
+        var objectiveParam = {};
+         //var objectiveArr = ["objective_id", "measurestatus", "normalizedmeasure", "progressstatus", "satisfiedstatus"];
+        var objectiveArr = ["objective_id"];
+
+        var interactionXML = xmlDoc.getElementsByTagName("interactions")[0].childNodes;
+        var noOfQuestions = interactionXML.length;
+        if (noOfQuestions != 0) {
+            if (interactionXML[0].getElementsByTagName("objectives")[0].childNodes.length != 0) {
+                var objectiveXML = interactionXML[0].getElementsByTagName("objectives")[0].childNodes[0];
+                objectiveParam[objectiveArr[0]] = objectiveXML.getAttribute("id");
+                var objectiveContentXML = xmlDoc.getElementsByTagName("objectives")[0].childNodes[0];
+                insertDataToJSON(objectiveParam, objectiveContentXML, objectiveArr, 1);
+                printDataFromJSON(objectiveParam, objectiveArr);
+            } else if (xmlDoc.getElementsByTagName("objectives")[0].childNodes.length != 0) {
+                //do N/A
+                if(xmlDoc.getElementsByTagName("objectives")[0].childNodes[0].getAttribute('id')=='')
+                {
+                    objectiveParam[objectiveArr[0]] = 'N/A';
+                }
+                else
+                {
+                  objectiveParam[objectiveArr[0]] = xmlDoc.getElementsByTagName("objectives")[0].childNodes[0].getAttribute('id');
+                }
+//                objectiveParam[objectiveArr[0]] = objectiveXML.getAttribute("id");
+                  printDataFromJSON(objectiveParam, objectiveArr);
+            } else {
+                objectiveParam[objectiveArr[0]] = 'N/A';
+                printDataFromJSON(objectiveParam, objectiveArr);
+            }
+        } else if (xmlDoc.getElementsByTagName("objectives")[0].childNodes.length != 0) {
+            //do nothing
+        } else {
+            
+        }
+
+
+
+        /*
+        Runtime Data
+        */
+
+        var runtimeArrStatus = ["completion_status", "success_status"];
+         //var runtimeArrMisc = ["credit", "mode"];
+         //var runtimeArrNavig = ["entry", "exit", "location", "progress_measure"];
+        var runtimeArrNavig = ["entry", "exit", "location"];
+         //var runtimeArrScore = ["score_raw", "score_min", "score_max", "score_scaled"];
+        var runtimeArrScore = ["score_raw", "score_max", "score_scaled"];
+         //var runtimeArrTime = ["total_time", "timetracked"];
+
+//
+        var runtimeParam = {};
+        var runtimeXML = xmlDoc.getElementsByTagName("runtime")[0];
+
+
+        insertDataToJSON(runtimeParam, runtimeXML, runtimeArrStatus, 0);
+        printDataFromJSON(runtimeParam, runtimeArrStatus);
+
+         //        insertDataToJSON(runtimeParam, runtimeXML, runtimeArrMisc, 0);
+         //        printDataFromJSON(runtimeParam, runtimeArrMisc);
+
+        insertDataToJSON(runtimeParam, runtimeXML, runtimeArrNavig, 0);
+        printDataFromJSON(runtimeParam, runtimeArrNavig);
+
+        insertDataToJSON(runtimeParam, runtimeXML, runtimeArrScore, 0);
+        printDataFromJSON(runtimeParam, runtimeArrScore);
+
+         //insertDataToJSON(runtimeParam, runtimeXML, runtimeArrTime, 0);
+         //printDataFromJSON(runtimeParam, runtimeArrTime);
+
+
+        document.write("</table></td></tr></table></div>");
+
+
+
+        /*
+        INTERACTION
+        */
+
+
+        if (noOfQuestions) {
+            document.write("<div id='bottomDiv' style='margin-top:20px;'><table cellspacing='0' cellpadding='0' width='100%' class='table3'>");
+            if(xmlFileStandard == "SCORM2004")
+                document.write("<col width='5%'><col width='10%'><col width='5%'><col width='10%'><col width='10%'><col width='5%'><col width='10%'><col width='5%'><col width='10%'><col width='30%'>");
+            else
+                document.write("<col width='5%'><col width='30%'><col width='5%'><col width='10%'><col width='10%'><col width='5%'><col width='10%'><col width='5%'><col width='10%'><col width='10%'>");
+            document.write("<th colspan='10' class='heading' onmouseenter='showInteractionDataHelpButton()' onmouseleave='hideInteractionDataHelpButton()'>Interaction Data <input type='image' id='InteractionDataHelpImg' class='helpButton' src='lmsResultsFormatResources/question-mark.png' onclick='OpenInteractionDataHelp()' style='visibility:visible' > </th>");
+            document.write("<tr>");
+            document.write("<th class='interaction-table-cell-head'>Sl. No.</th>");
+            document.write("<th  class='interaction-table-cell-head'>ID</th>");
+            var interactionChildNodes = interactionXML[0].childNodes;
+            var noOfKeysInInteraction = interactionChildNodes.length;
+            for (i = 0; i < noOfKeysInInteraction; i++) {
+                if (interactionChildNodes[i].nodeName != "objectives")
+                    document.write("<th class='interaction-table-cell-head'>" + interactionChildNodes[i].nodeName + "</th>");
+            }
+            document.write("</tr>");
+            for (qCount = 0; qCount < noOfQuestions; qCount++) {
+                var rowStyle = (qCount%2) ? 'interaction-table-green-row' : 'interaction-table-white-row';
+                document.write("<tr class='"+rowStyle+"'><td  class='interaction-table-cell'>");
+                document.write(qCount + 1);
+                document.write("</td><td  class='interaction-table-cell'>");
+                document.write(interactionXML[qCount].getAttribute("id")); //interaction ID
+                document.write("</td>");
+                var interactionChildNodes = interactionXML[qCount].childNodes;
+                for (rCount = 0; rCount < noOfKeysInInteraction; rCount++) {
+                    if (interactionChildNodes[rCount].nodeName != "objectives" && interactionChildNodes[rCount].nodeName != "correct_responses") {
+                        if (interactionChildNodes[rCount].childNodes.length != 0)
+                            document.write("<td  class='interaction-table-cell'>" + interactionChildNodes[rCount].childNodes[0].nodeValue + "</td>");
+                        else
+                            document.write("<td class='interaction-table-cell'>N/A</td>");
+                    } else if (interactionChildNodes[rCount].nodeName == "correct_responses") {
+                        if (interactionChildNodes[rCount].childNodes.length != 0)
+                        {
+                        document.write("<td  class='interaction-table-cell'>" + interactionChildNodes[rCount].childNodes[0].getAttribute("id") + "</td>");
+                        }
+                        else
+                        {
+                            document.write("<td  class='interaction-table-cell'></td>");
+                        }
+                    } else {
+                        // do nothing for objective key
+                    }
+                }
+            }
+            document.write("</table></div>");
+        }
+        document.write("</div>");
+
+        function OpenCourseDetailsHelp(){
+            document.getElementById('CourseDetailsHelpDiv').style.display='block';
+            document.getElementById('fade').style.display='block'
+        }
+        function CloseCourseDetailsHelp(){
+            document.getElementById('CourseDetailsHelpDiv').style.display='none';
+            document.getElementById('fade').style.display='none';
+        }
+        function OpenRuntimeDataHelp(){
+            document.getElementById('RuntimeDataHelpDiv').style.display='block';
+            document.getElementById('fade').style.display='block'
+        }
+        function CloseRuntimeDataHelp(){
+            document.getElementById('RuntimeDataHelpDiv').style.display='none';
+            document.getElementById('fade').style.display='none';
+        }
+        function OpenInteractionDataHelp(){
+            document.getElementById('InteractionDataHelpDiv').style.display='block';
+            document.getElementById('fade').style.display='block'
+        }
+        function CloseInteractionDataHelp(){
+            document.getElementById('InteractionDataHelpDiv').style.display='none';
+            document.getElementById('fade').style.display='none';
+        }
+        function showCourseHelpButton()
+        {
+            document.getElementById('courseDetailsHelpImg').style.visibility = 'visible';
+        }
+        function hideCourseHelpButton()
+        {
+            document.getElementById('courseDetailsHelpImg').style.visibility = 'visible';
+        }
+        function showRuntimeDataHelpButton()
+        {
+            document.getElementById('RuntimeDataHelpImg').style.visibility = 'visible';
+        }
+        function hideRuntimeDataHelpButton()
+        {
+            document.getElementById('RuntimeDataHelpImg').style.visibility = 'visible';
+        }
+        function showInteractionDataHelpButton()
+        {
+            document.getElementById('InteractionDataHelpImg').style.visibility = 'visible';
+        }
+        function hideInteractionDataHelpButton()
+        {
+            document.getElementById('InteractionDataHelpImg').style.visibility = 'visible';
+        }
+        
+        /*
+            Learner Preferences
+            */
+
+         //            var learnerPrefXML = xmlDoc.getElementsByTagName('learnerpreference')[0];
+         //            var learnerArr = ['audio_level', 'language', 'delivery_speed', 'audio_captioning'];
+         //            var learnerParam = {};
+         //            document.write("<table><tr><td colspan='2'><font color='#444' size='15px'>Learner Preference</font><td></tr>");
+         //            insertDataToJSON(learnerParam, learnerPrefXML, learnerArr, 0);
+         //            printDataFromJSON(learnerParam, learnerArr);
+         //            document.write("</table></br>");
+         //document.write(params.filename);
+
+
+        /*
+            Suspend data
+            */
+
+         //            var supendDataXML = xmlDoc.getElementsByTagName("suspend_data");
+         //            if (supendDataXML[0].childNodes.length != 0)
+         //                document.write("<b>suspend_data : </b>" + supendDataXML[0].childNodes[0].nodeValue);
+    </script>
+</body>
+
+</html>
