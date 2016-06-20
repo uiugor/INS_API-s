@@ -1,0 +1,92 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Inside Sistemas API para Envio de Mensagem QUIZ</title>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script>
+/*
+These lines get the variables from your Captivate project and makes them readable for this file
+Each line follows the basic pattern: var NewVariableName = parent.getfromcaptivate('CaptivateVariableName')
+You can add as many as you like, these are just the ones I use.
+*/
+//User variables - you must create these variables in Captivate
+var studentemail = parent.window.cpAPIInterface.getVariableValue('vemail');
+var firstname = parent.window.cpAPIInterface.getVariableValue('vfirstname');
+var lastname = parent.window.cpAPIInterface.getVariableValue('vlastname');
+var jobrole = parent.window.cpAPIInterface.getVariableValue('vjobrole');
+var phone = parent.window.cpAPIInterface.getVariableValue('vphone');
+var custom1 = parent.window.cpAPIInterface.getVariableValue('vcustom1'); //You can assign these to interactions and questions
+var custom2 = parent.window.cpAPIInterface.getVariableValue('vcustom2');
+var custom3 = parent.window.cpAPIInterface.getVariableValue('vcustom3');
+var custom4 = parent.window.cpAPIInterface.getVariableValue('vcustom4');
+var custom5 = parent.window.cpAPIInterface.getVariableValue('vcustom5');
+var custom6 = parent.window.cpAPIInterface.getVariableValue('vcustom6');
+var custom7 = parent.window.cpAPIInterface.getVariableValue('vcustom7');
+var custom8 = parent.window.cpAPIInterface.getVariableValue('vcustom8');
+var custom9 = parent.window.cpAPIInterface.getVariableValue('vcustom9');
+var custom10 = parent.window.cpAPIInterface.getVariableValue('vcustom10');
+// Some quizzing variables - automatically created
+var result = parent.window.cpAPIInterface.getVariableValue('cpQuizInfoPassFail');
+var date = parent.window.cpAPIInterface.getVariableValue('cpInfoCurrentDate');
+var points = parent.window.cpAPIInterface.getVariableValue('cpQuizInfoPointsscored');
+var attempts = parent.window.cpAPIInterface.getVariableValue('cpQuizInfoAttempts');
+var percentage = parent.window.cpAPIInterface.getVariableValue('cpInfoPercentage');
+var correctAnswers = parent.window.cpAPIInterface.getVariableValue('cpQuizInfoTotalCorrectAnswers');
+// A couple of general Captivate variables
+var timetaken = parent.window.cpAPIInterface.getVariableValue('cpInfoElapsedTimeMS') / 60000;
+var coursename = parent.window.cpAPIInterface.getVariableValue('cpInfoCourseName');
+</script>
+
+</head>
+<body>
+<p>&nbsp;</p>
+
+<script>
+//this section sends the email
+$.ajax({
+  type: "POST",
+  url: "https://mandrillapp.com/api/1.0/messages/send.json",
+  data: {
+    'key': '8eeb7c6a23a83baf61251e3383a7646e-us13', //You can get one of these for free just Google MandrillApp!
+    'message': {
+      'from_email': 'igor.confetti@insidesistemas.com.br', //Has to be an email address
+      'to': [
+          {
+            'email': 'igor.confetti@insidesistemas.com.br', //please delete my email address!
+            'name': 'Igor', //This line can be deleted if you want
+            'type': 'to'
+          },
+          {
+            'email': studentemail, //so it send to the student
+            'type': 'to'
+          }
+        ],
+      'autotext': 'true',
+      'subject': 'Resultado Quiz',
+            'html': '<h2>Você Completou um Modulo</h2> ' //you can use html/css inside the ' '
+				+ '<br>NOME: ' + firstname + ' ' + lastname 
+	  			+ '<br>Emprego: ' + jobrole 
+				+ '<br>Numero de Telefone: ' + phone
+				+ '<br>Resultado do Quiz: ' + result //displays as true/false
+				+ '<br>Pontos: ' + points				
+				+ '<br>Porcentagem: ' + percentage
+				+ '<br>Tentativas: ' + attempts
+				+ '<br>Tempo (mins): ' + timetaken.toFixed(1) //toFixed sets it to (1) decimal places
+				+ '<br><strong>Questão data:</strong>'
+				+ '<br>Questão 1: ' + custom1
+				+ '<br>Questão 2: ' + custom2
+				+ '<br>Questão 3: ' + custom3
+				+ '<br>Questão 4: ' + custom4
+				+ '<br>Questão 5: ' + custom5
+				+ '<br>Desenvolvido by <a href="http://www.insidesistemas.com.br">Igor Confetti</a>'							
+				,  //don't delete this, it will cause the world to end 
+    }
+  }
+ }).done(function(response) {
+   console.log(response); 
+ });
+ // If you like this not-a-widget, please share it around!
+</script>
+</body>
+</html>
