@@ -1,29 +1,28 @@
 <?php # InternalServerReporting.php
 # Copyright 2000-2008 Adobe Systems Incorporated. All rights reserved.
 #
-# Editado e Remodelado por Igor Confetti - Inside Sistemas#
    print "<pre>\n";
 
 #
    foreach ($_POST as $k => $v) 
    {
-  	  if($k == "Nome da Empresa")
+  	  if($k == "CompanyName")
 	  {
 	    $CompanyName = $v;
       }
-      if($k == "Nome do Departamento")
+      if($k == "DepartmentName")
 	  {
 	    $DepartmentName = $v;
       }
-      if($k == "Modulo")
+      if($k == "CourseName")
 	  {
 	    $CourseName = $v;
       }
-      if($k == "Nome do Arquivo")
+      if($k == "Filename")
       {
       	$Filename = str_replace(array(','), '_' , $v);
       }
-      if($k == "Local do Arquivo")
+      if($k == "Filedata")
       {
       	if(get_magic_quotes_gpc())
 		$Filedata = stripslashes($v);
@@ -32,7 +31,7 @@
       }
    }
 
-	$ResultFolder = "./"."ResultadosCaptivate";
+	$ResultFolder = "./"."CaptivateResults";
 	mkdir($ResultFolder);
 	$CompanyFolder = $ResultFolder."//".$CompanyName;
 	mkdir($CompanyFolder);
